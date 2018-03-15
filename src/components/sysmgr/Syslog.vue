@@ -13,7 +13,7 @@
                 header-align="center"/>
             <el-table-column
                 prop="account"
-                label="账号"
+                label="帐号"
                 width="180"
                 fixed
                 header-align="center">
