@@ -14,20 +14,47 @@
             <el-table-column
                 prop="account"
                 label="帐号"
-                width="180"
+                width="100"
                 fixed
                 header-align="center">
             </el-table-column>
             <el-table-column
                 prop="ip"
                 label="IP"
-                width="180"
+                width="130"
+                fixed
                 header-align="center">
             </el-table-column>
             <el-table-column
                 prop="visitTime"
                 label="访问时间"
+                fixed
+                width="180"
                 sortable="custom"
+                header-align="center">
+            </el-table-column>
+            <el-table-column
+                prop="spendTime"
+                label="消耗时间"
+                width="110"
+                sortable
+                header-align="center">
+            </el-table-column>
+            <el-table-column
+                prop="uri"
+                label="访问地址"
+                width="180"
+                header-align="center">
+            </el-table-column>
+            <el-table-column
+                prop="clazz"
+                label="处理类"
+                width="180"
+                header-align="center">
+            </el-table-column>
+            <el-table-column
+                prop="methodName"
+                label="方法"
                 header-align="center">
             </el-table-column>
         </el-table>
@@ -58,17 +85,10 @@ export default {
     },
     methods: {
         loadData() {
-            this.$http({
-                method: 'post',
-                url: `http://localhost:8081/sysmgr/syslog/query_page`,
-                headers: {
-                    Authorization: `Bearer ${this.$store.getters.accessToken}`
-                },
-                data: {
-                    page: this.pages.page,
-                    sort: this.pages.sort,
-                    rows: this.pages.pageSize
-                }
+            this.$http.post('/sysmgr/syslog/query_page', {
+                page: this.pages.page,
+                sort: this.pages.sort,
+                rows: this.pages.pageSize
             })
             .then(resp => {
                 console.log(resp.data);

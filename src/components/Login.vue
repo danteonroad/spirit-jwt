@@ -40,8 +40,10 @@ export default {
     },
     methods: {
         doLogin() {
-            this.$store.dispatch('doLogin', this.form);
-            this.$router.replace('/mainpage');
+            let promise = this.$store.dispatch('doLogin', this.form);
+            console.log(promise)
+        //    this.$router.replace('/mainpage');
+
         }
     },
     mounted() {

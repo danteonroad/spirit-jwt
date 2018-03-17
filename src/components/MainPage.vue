@@ -4,14 +4,13 @@
             <el-header>
                 <app-header></app-header>
             </el-header>
-            <el-main>
+            <el-main :style="style">
                 <router-view></router-view>
             </el-main>
             <el-footer style="height:30px;">版权所有©️但丁无涯峰</el-footer>
         </el-container>
     </div>
 </template>
-
 
 <script>
 import {mapGetters} from 'Vuex';
@@ -29,7 +28,14 @@ export default {
         ...mapGetters([
             'currentUser'
         ]),
+        style() {
+            const h = (window.innerHeight - 30 - 61) + 'px';
+            return {height: h}
+        }
+    },
+    mounted() {
     }
+    
 }
 </script>
 
@@ -49,15 +55,13 @@ export default {
     }
 
     .el-main {
-        height: 589px;
         background-color: #E9EEF3;
         color: #333;
         text-align: center;
         overflow: auto;
         padding: 10px;
     }
-
-    
+  
     .el-footer {
         background-color: #B3C0D1;
         color: #333;

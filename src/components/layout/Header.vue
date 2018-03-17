@@ -25,8 +25,6 @@
 export default {
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1',
         menus: []
       };
     },
@@ -37,24 +35,20 @@ export default {
     },
     created() {
         var currentUser = this.$store.getters.currentUser;
-        this.$http({
-            method: 'post',
-            url: `http://localhost:8081/get_user_menu/${currentUser.id}`,
-            headers: {
-                Authorization: `Bearer ${currentUser.accessToken}`
-            }
-        })
-        .then(resp => {
-            console.log(resp.data.data);
-            this.menus = resp.data.data;
-        });
+        this.$http.post(`/get_user_menu/${currentUser.id}`)
+            .then(resp => {
+                // console.log(resp.data.data);
+                this.menus = resp.data.data;
+            })
+            .catch(err => {
+            })
+        ;
     }
 }
 </script>
 
 <style lang="less" scoped>
 #header {
-    
     width: 100%;
     margin: 0;
     .el-memu {
