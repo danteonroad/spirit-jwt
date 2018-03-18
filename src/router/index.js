@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Error from '@/components/error';
 import Login from '@/components/Login.vue';
 import MainPage from '@/components/MainPage.vue';
 import Sysmgr from '@/components/sysmgr'
@@ -15,6 +16,10 @@ export default new Router({
         {
             path: '/login',
             component: Login
+        },
+        {
+            path: '/500',
+            component: Error._500
         },
         {
             path: '/mainpage',

@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import headerApi from '@/api/sysmgr/header';
+
 export default {
     data() {
       return {
@@ -33,16 +35,13 @@ export default {
         console.log(key, keyPath);
       }
     },
-    created() {
-        var currentUser = this.$store.getters.currentUser;
-        this.$http.post(`/get_user_menu/${currentUser.id}`)
-            .then(resp => {
-                // console.log(resp.data.data);
+    mounted() {
+        headerApi.loadMenu(
+            resp => {
                 this.menus = resp.data.data;
-            })
-            .catch(err => {
-            })
-        ;
+            },
+            err => {}
+        )
     }
 }
 </script>

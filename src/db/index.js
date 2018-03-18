@@ -16,5 +16,11 @@ export default {
     },
     removeItem(key) {
         ls.removeItem(key)
+    },
+    currentUser() {
+        return this.getItem('currentUser');
+    },
+    saveCurrentUser(val) {
+        ls.setItem('currentUser', JSON.stringify(val))
     }
 }
