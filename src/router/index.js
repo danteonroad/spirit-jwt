@@ -11,20 +11,23 @@ Vue.use(Router)
 export default new Router({
     routes: [{
             path: '',
-            redirect: '/login'
-        },
-        {
+            component: Login
+        }, {
             path: '/login',
             component: Login
         },
         {
-            path: '/500',
-            component: Error._500
+            path: '/404',
+            component: Error._404
         },
         {
             path: '/mainpage',
             component: MainPage,
             children: [{
+                    path: '/500',
+                    component: Error._500
+                },
+                {
                     path: '/sysmgr/user',
                     component: Sysmgr.User
                 },
@@ -34,7 +37,6 @@ export default new Router({
                 }
             ]
         }
-
-
-    ]
+    ],
+    mode: 'history'
 })

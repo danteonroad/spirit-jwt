@@ -1,5 +1,5 @@
 import dao from '@/db';
-const authCodes = dao.currentUser().authoritys;
+const authCodes = dao.currentUser() ? dao.currentUser().authoritys : [];
 
 let checkAuth = function(el, authCode) {
     if (!authCode || !authCodes.includes(authCode)) {

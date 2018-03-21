@@ -11,6 +11,9 @@ export default new Vuex.Store({
     modules: {
         // Login
     },
+    state: {
+        mainHeight: 0
+    },
     getters,
     mutations,
     actions,

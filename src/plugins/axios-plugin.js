@@ -24,12 +24,14 @@ apiService.interceptors.response.use(
     err => {
         if (err.response.status === 401) {
             // 401 说明 token 验证失败
-            // 可以直接跳转到登录页面，重新登录获取 token
-            location.href = '/';
+            dao.clearCurrentUser();
+            location.href = '/login';
+        } else if (err.response.status === 404) {
+            console.log('------------------')
         } else if (err.response.status === 500) {
             // 服务器错误
-            // return Promise.reject(err.response.data)
-            location.href = '/500';
+            // location.href = '/500';
+            return Promise.reject(err.response.data);
         }
         return Promise.reject(err);
     }

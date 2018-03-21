@@ -4,7 +4,7 @@
             <el-header>
                 <app-header></app-header>
             </el-header>
-            <el-main :style="style">
+            <el-main ref="appMain">
                 <router-view></router-view>
             </el-main>
             <el-footer style="height:30px;">版权所有©️但丁无涯峰</el-footer>
@@ -28,12 +28,14 @@ export default {
         ...mapGetters([
             'currentUser'
         ]),
-        style() {
-            const h = (window.innerHeight - 30 - 61) + 'px';
-            return {height: h}
-        }
+        
     },
     mounted() {
+        this.$store.dispatch('getMainHeight', this.$refs.appMain.$el.clientHeight);
+        const that = this;
+        window.onresize = function temp() {
+           that.$store.dispatch('getMainHeight', that.$refs.appMain.$el.clientHeight);
+        };
     }
     
 }
@@ -45,8 +47,11 @@ export default {
         padding: 0;
         overflow: hidden;
     }
-    body > .el-container {
+    .el-container {
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
     }
 
     .el-header {
@@ -59,6 +64,7 @@ export default {
         color: #333;
         text-align: center;
         overflow: auto;
+        height: 100%;
         padding: 10px;
     }
   

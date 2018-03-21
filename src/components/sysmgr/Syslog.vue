@@ -1,117 +1,79 @@
 <template>
     <div id="sysLog">
-        <el-table
-            :data="rows"
-            stripe
-            :highlight-current-row="true"
-            :max-height="530"
-            style="width: 100%; height: 100%;">
-            <el-table-column
-                type="index"
-                width="50"
-                fixed
-                header-align="center"/>
-            <el-table-column
-                prop="account"
-                label="帐号"
-                width="100"
-                fixed
-                header-align="center">
-            </el-table-column>
-            <el-table-column
-                prop="ip"
-                label="IP"
-                width="130"
-                fixed
-                header-align="center">
-            </el-table-column>
-            <el-table-column
-                prop="visitTime"
-                label="访问时间"
-                fixed
-                width="180"
-                sortable="custom"
-                header-align="center">
-            </el-table-column>
-            <el-table-column
-                prop="spendTime"
-                label="消耗时间"
-                width="110"
-                sortable
-                header-align="center">
-            </el-table-column>
-            <el-table-column
-                prop="uri"
-                label="访问地址"
-                width="180"
-                header-align="center">
-            </el-table-column>
-            <el-table-column
-                prop="clazz"
-                label="处理类"
-                width="180"
-                header-align="center">
-            </el-table-column>
-            <el-table-column
-                prop="methodName"
-                label="方法"
-                header-align="center">
-            </el-table-column>
-        </el-table>
-        <el-pagination
-            @current-change="handleCurrentChange"
-            @size-change="handleSizeChange"
-            :page-sizes="[20, 40, 60]"
-            :page-size="pages.pageSize"
-            :current-page="pages.page"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="pages.total">
-        </el-pagination>
+			<el-form ref="syslogForm" :model="query" :inline="true" class="searchForm" size="mini">
+				<el-form-item label="帐号">
+                    <el-input placeholder="帐号" v-model="query.account"></el-input>
+				</el-form-item>
+                <el-form-item label="IP">
+                    <el-input placeholder="ip" v-model="query.ip"></el-input>
+				</el-form-item>
+                <el-form-item label="访问时间">
+                    <el-date-picker
+                        v-model="query.dateRange" 
+                        type="daterange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        value-format="yyyy-MM-dd">
+                    </el-date-picker>
+                </el-form-item>
+                </el-col>
+				<el-form-item>
+					<el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+				</el-form-item>
+			</el-form>
+        <spirit-table
+            ref="syslogTable"
+            :table="table" 
+            :url="url" 
+            :pages="pages"
+            :remoteSort="remoteSort"
+            :handleCurrentChange="handleCurrentChange"
+            :handleSizeChange="handleSizeChange">
+        </spirit-table>
     </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            rows: [],
-            pages: {
-                page: 1,
-                pageSize: 20,
-                total: 0,
-                sort: 'visitTime'
-            }
-        }
-    },
-    methods: {
-        loadData() {
-            this.$http.post('/sysmgr/syslog/query_page', {
-                page: this.pages.page,
-                sort: this.pages.sort,
-                rows: this.pages.pageSize
-            })
-            .then(resp => {
-                console.log(resp.data);
-                this.rows = resp.data.rows;
-                this.pages.total = resp.data.total;
-            });
-        },
-        handleCurrentChange(val) {
-            this.pages.page = val;
-            this.loadData();
-        },
-        handleSizeChange(val) {
-            this.pages.pageSize = val;
-            this.loadData();
-        }
-    },
-    created() {
+import Component from 'vue-class-component';
+import Config from './syslog-config';
+import BaseTable from '@/util/table-util';
+
+@Component
+export default class Syslog extends BaseTable {
+
+    url = '/sysmgr/syslog/query_page';
+    table = Config;
+    searchFormHeight = 0;
+
+    query = {
+        account: '',
+        ip: '',
+        dateRange: '',
+        startDate: '',
+        endDate: ''
+    }
+
+    search() {
+        this.query.startDate = this.query.dateRange[0];
+        this.query.endDate = this.query.dateRange[1];
+        this.pages.q = this.query;
         this.loadData();
-        
+    }
+
+    mounted () {
+        this.table.searchHeight = this.$refs.syslogForm.$el.clientHeight;
+        const that = this;
+        window.onresize = function temp() {
+            that.table.searchHeight = that.$refs.syslogForm.$el.clientHeight;
+        };
     }
 }
 </script>
 
 <style lang="less" scoped>
-
+    .searchForm {
+        font-size: 12px;
+        text-align: left;
+    }
 </style>

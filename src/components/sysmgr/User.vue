@@ -19,6 +19,9 @@ export default {
     methods: {
         changeAuth() {
             this.auth.update = '111'
+        },
+        aaa() {
+            alert(222)
         }
     }
 }

@@ -22,5 +22,8 @@ export default {
     },
     saveCurrentUser(val) {
         ls.setItem('currentUser', JSON.stringify(val))
+    },
+    clearCurrentUser() {
+        this.removeItem('currentUser');
     }
 }

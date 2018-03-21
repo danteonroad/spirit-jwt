@@ -1,4 +1,4 @@
-import { apiService } from '@/plugins/axios_plugin';
+import { apiService } from '@/plugins/axios-plugin';
 
 export default {
     login(authUser, cb, errorCb) {
