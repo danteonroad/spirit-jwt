@@ -5,6 +5,7 @@
         stripe
         :highlight-current-row="true"
         :max-height="maxHeight"
+        :default-sort="table.defaultSort"
         @sort-change="remoteSort"
         header-row-class-name="spirit-table-header"
         row-class-name="spirit-table-row"

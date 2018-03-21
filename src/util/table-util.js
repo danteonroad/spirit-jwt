@@ -44,6 +44,11 @@ export default class TableUtil extends Vue {
         this.loadData();
     };
 
+    /**
+     * 当设置 default-sort 的 prop 是 custom 时，created 不要去加载后台数据
+     * 
+     * @param {*} param0 
+     */
     remoteSort({ column, prop, order }) {
         if (column && column.sortable == 'custom') {
             this.pages.sort = prop;
@@ -52,8 +57,9 @@ export default class TableUtil extends Vue {
         }
     };
 
+    /*
     created() {
-        this.loadData();
+       this.loadData();
     };
-
+    */
 }

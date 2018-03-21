@@ -1,5 +1,6 @@
 export default {
     seq: { show: true, width: 50 },
+    defaultSort: { prop: 'visitTime', order: 'desc' },
     col: [
         { prop: 'account', label: '帐号', width: 100, fixed: true },
         { prop: 'ip', label: 'IP', width: 130, fixed: true },

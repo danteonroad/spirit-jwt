@@ -4,7 +4,7 @@
             <span>用户登录</span>
         </div>
         <div>
-            <el-form ref="form" :model="form" :rules="rules" label-width="80px" status-icon="true">
+            <el-form ref="form" :model="form" :rules="rules" label-width="80px" :status-icon="true">
                 <el-form-item label="用户名" prop="account">
                     <el-input ref="account" type="text" v-model="form.account" placeholder="请输入用户名"></el-input>
                 </el-form-item>
