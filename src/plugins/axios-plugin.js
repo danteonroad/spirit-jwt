@@ -30,8 +30,8 @@ apiService.interceptors.response.use(
             console.log('------------------')
         } else if (err.response.status === 500) {
             // 服务器错误
-            // location.href = '/500';
-            return Promise.reject(err.response.data);
+            location.href = '/500';
+            // return Promise.reject(err.response.data);
         }
         return Promise.reject(err);
     }

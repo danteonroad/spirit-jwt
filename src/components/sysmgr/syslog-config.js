@@ -10,6 +10,7 @@ export default {
         { prop: 'clazz', label: '处理类', width: 180 },
         { prop: 'methodName', label: '方法' },
     ],
+    operation: { enable: false },
     page: { enable: true },
     searchHeight: 0
 }
