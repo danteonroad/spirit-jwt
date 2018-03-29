@@ -62,14 +62,12 @@ export default {
     .el-main {
         background-color: #E9EEF3;
         color: #333;
-        text-align: center;
         overflow: auto;
         height: 100%;
         padding: 10px;
     }
   
     .el-footer {
-        
         background-color: #B3C0D1;
         color: #333;
         text-align: center;

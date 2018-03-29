@@ -14,19 +14,22 @@
         type="index"
         :width="table.seq.width"
         fixed
-        header-align="center"/>
-      <el-table-column v-for="item in table.col"
+        header-align="center"
+        align="center"/>
+      <el-table-column v-for="(item, key, index) in table.col"
+        :key="index"
         :prop="item.prop"
         :label="item.label"
         :width="item.width"
         :fixed="item.fixed"
         :sortable="item.sortable"
+        :align="item.align?item.align:'center'"
         header-align="center"
         show-overflow-tooltip>
       </el-table-column>
       <el-table-column v-if="table.operation.enable" fixed="right" :label="table.operation.label?table.operation.label:'操作'" :width="table.operation.width" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-button type="text" plain size="small" icon="el-icon-edit" @click.native="handleRowEdit"></el-button>
+          <el-button type="text" plain size="small" icon="el-icon-edit" @click.native="handleRowEdit(scope.row.id)"></el-button>
           <el-button v-if="table.operation.rowdelete" type="text" plain size="small" icon="el-icon-delete"></el-button>
         </template>
       </el-table-column>
@@ -74,6 +77,7 @@ export default {
 
     .el-pagination {
         margin-top: 10px;
+        text-align: center;
     }
     .spirit-table-header{
         height: 30px;

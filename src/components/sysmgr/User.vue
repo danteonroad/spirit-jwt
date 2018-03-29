@@ -12,7 +12,7 @@
       </el-col>
       <el-col :span="2" :offset="2">
         <el-form-item>
-          <el-button type="primary" icon="el-icon-plus" @click="userdetail(110)">新增</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="userdetail()">新增</el-button>
         </el-form-item>
       </el-col>
     </el-form>
@@ -24,10 +24,14 @@
       :remoteSort="remoteSort"
       :handleCurrentChange="handleCurrentChange"
       :handleSizeChange="handleSizeChange"
-      :handleRowEdit="handleRowEdit">
-    </spirit-table>
-    <el-dialog title="用户详情" :visible.sync="showDetail">
-      <UserDetail :id="userId"></UserDetail>
+      :handleRowEdit="userdetail">
+    </spirit-table> 
+    <el-dialog title="用户详情" :visible.sync="showDetail" >   
+      <UserDetail 
+        :userId="userId" 
+        :reload="search"
+        :visible.sync="showDetail">
+      </UserDetail>
     </el-dialog>
   </div>
 </template>
@@ -48,10 +52,11 @@ export default class UserList extends BaseTable {
   table = Config;
   searchFormHeight = 0;
   showDetail = false;
-  userId = 0;
+  userId = -1;
 
   query = {
-    account: ''
+    account: '',
+    status: 'NORMAL'
   };
 
   search() {
@@ -78,10 +83,6 @@ export default class UserList extends BaseTable {
     window.onresize = function temp() {
         that.table.searchHeight = that.$refs.userForm.$el.clientHeight;
     };
-  }
-
-  handleRowEdit() {
-    console.log('==============================')
   }
 }
 </script>
